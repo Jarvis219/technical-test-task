@@ -1,4 +1,4 @@
-import { images } from '@/constants'
+import { imageUrl } from '@/constants'
 import '@/styles/globals.scss'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Test technical',
   description: 'Test technical',
-  icons: images.logo,
+  icons: imageUrl.logo,
 }
 
 export default function RootLayout({
