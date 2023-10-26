@@ -1,7 +1,7 @@
 import { getSignatureMessage } from '@/constants'
 import { IAuthContext, IUser } from '@/types'
 import { ReactNode, createContext, useContext } from 'react'
-import { useAccount, useSignMessage } from 'wagmi'
+import { useAccount, useDisconnect, useSignMessage } from 'wagmi'
 
 const initState: IAuthContext = {
   walletAddress: undefined,
@@ -25,6 +25,8 @@ const AuthProvider = ({
   login,
   logout,
 }: IAuthProviderProps): JSX.Element => {
+  const { disconnect } = useDisconnect()
+
   const { address } = useAccount({
     onConnect: () =>
       signMessage({
@@ -44,13 +46,18 @@ const AuthProvider = ({
     },
   })
 
+  const handleLogout = (): void => {
+    logout()
+    disconnect()
+  }
+
   return (
     <AuthContext.Provider
       value={{
         walletAddress: walletAddress,
         isLoggedIn,
         login,
-        logout,
+        logout: handleLogout,
       }}>
       {children}
     </AuthContext.Provider>
