@@ -29,7 +29,7 @@ const HomeContainer = ({
                 <div className='flex items-center gap-1 line-clamp-1'>
                   {data.profit && (
                     <p
-                      className={`flex gap-1 items-center text-sm ${
+                      className={`flex gap-1 items-center text-sm font-semibold ${
                         data.profit > 0 ? 'text-green-500' : 'text-red-500'
                       }`}>
                       {data.profit > 0 ? (

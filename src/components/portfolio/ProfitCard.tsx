@@ -1,3 +1,4 @@
+import { formatNumber } from '@/utils'
 import { ReactNode, memo } from 'react'
 import { twMerge } from 'tailwind-merge'
 
@@ -25,7 +26,7 @@ const ProfitCard = ({
       <div className='flex gap-1 items-center'>
         $
         <p className='text-xl font-bold my-1 line-clamp-1'>
-          {total.toLocaleString()}
+          {formatNumber(total)}
         </p>
       </div>
       {children}

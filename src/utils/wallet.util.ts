@@ -6,5 +6,7 @@ export function maskAddress(address: string, start = 4, end = 4): string {
 }
 
 export function formatNumber(num: number): string {
-  return Intl.NumberFormat('en-US', {}).format(num)
+  return Intl.NumberFormat('en-US', {
+    maximumFractionDigits: 2,
+  }).format(num)
 }
