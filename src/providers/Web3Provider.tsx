@@ -29,14 +29,19 @@ const Web3Provider = ({ children }: { children: ReactNode }): JSX.Element => {
     setUser({ address, signature, singedMessage })
 
   useLayoutEffect(() => {
-    user ? router.push(pageLinks.Home) : router.push(pageLinks.Login)
-  }, [user])
+    if (user && pathName === pageLinks.Login) {
+      router.push(pageLinks.Home)
+      return
+    }
 
-  useLayoutEffect(() => {
-    if (user && pathName === pageLinks.Login) router.push(pageLinks.Home)
+    user ? router.push(pageLinks.Home) : router.push(pageLinks.Login)
   }, [pathName, user])
 
-  if (!user && pathName === pageLinks.Home) return <LoadingOverlay />
+  if (
+    (!user && pathName === pageLinks.Home) ||
+    (user && pathName === pageLinks.Login)
+  )
+    return <LoadingOverlay />
 
   return (
     <WagmiConfig config={wagmiConfig}>

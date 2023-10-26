@@ -1,6 +1,6 @@
 import Header from '@/components/layout/Header'
 import { imageUrl } from '@/constants'
-import AuthProvider from '@/providers/AuthProvider'
+import Web3Provider from '@/providers/Web3Provider'
 import '@/styles/globals.scss'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -23,12 +23,12 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <AuthProvider>
+        <Web3Provider>
           <Suspense fallback={<Loading />}>
             <Header />
             {children}
           </Suspense>
-        </AuthProvider>
+        </Web3Provider>
       </body>
     </html>
   )
