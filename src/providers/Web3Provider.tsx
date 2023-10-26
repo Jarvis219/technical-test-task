@@ -13,7 +13,7 @@ import { arbitrum, mainnet } from 'wagmi/chains'
 const projectId = process.env.NEXT_PUBLIC_PROJECT_WEB3_ID || ''
 const metadata = {
   name: 'Web3Modal test technical',
-  description: 'eb3Modal test technical',
+  description: 'Web3Modal test technical',
 }
 const chains = [mainnet, arbitrum]
 const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata })
