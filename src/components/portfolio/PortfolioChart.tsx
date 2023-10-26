@@ -39,6 +39,32 @@ const PortfolioChart = ({ profitByDay }: IProfitCardProps): JSX.Element => {
           stops: [0, 100],
         },
       },
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 350,
+            },
+          },
+        },
+        {
+          breakpoint: 768,
+          options: {
+            chart: {
+              width: 550,
+            },
+          },
+        },
+        {
+          breakpoint: 1024,
+          options: {
+            chart: {
+              width: 750,
+            },
+          },
+        },
+      ],
     }),
     [labels]
   )
