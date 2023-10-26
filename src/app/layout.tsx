@@ -1,4 +1,6 @@
+import Header from '@/components/layout/Header'
 import { imageUrl } from '@/constants'
+import AuthProvider from '@/providers/AuthProvider'
 import '@/styles/globals.scss'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -18,7 +20,12 @@ export default function RootLayout({
 }): JSX.Element {
   return (
     <html lang='en'>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <AuthProvider>
+          <Header />
+          {children}
+        </AuthProvider>
+      </body>
     </html>
   )
 }
