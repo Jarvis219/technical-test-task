@@ -5,6 +5,7 @@ import {
   getTodayStrategyInApi,
 } from '@/services'
 import { IProfitData } from '@/types'
+import { calculatePercentProfit } from '@/utils'
 import { NextPage } from 'next'
 
 const HomePage: NextPage = async (): Promise<JSX.Element> => {
@@ -21,13 +22,13 @@ const HomePage: NextPage = async (): Promise<JSX.Element> => {
         title: 'Today Profit',
         total: data.today,
         caption: 'compared to yesterday',
-        profit: (+data.today / +data.yesterday) * 100,
+        profit: calculatePercentProfit(+data.today, +data.yesterday),
       },
       {
         title: 'This Month Profit',
-        total: data.total,
+        total: data.this_month,
         caption: 'compared to last month',
-        profit: (+data.this_month / +data.last_month) * 100,
+        profit: calculatePercentProfit(+data.this_month, +data.last_month),
       },
     ]
 

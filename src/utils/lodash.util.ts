@@ -5,5 +5,3 @@ export const isEmpty = (value: string | object | null | undefined): boolean => {
     (typeof value === 'string' && value.trim().length === 0)
   )
 }
-
-export default isEmpty
