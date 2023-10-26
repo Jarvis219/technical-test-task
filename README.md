@@ -41,7 +41,7 @@ bun format
 
 ## Deploy on Vercel
 
-Open [https://test-technical-pi.vercel.app]
+Open [https://technical-test-task.vercel.app]
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
