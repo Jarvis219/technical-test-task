@@ -31,7 +31,7 @@ const Header = (): JSX.Element => {
             className={`text-base font-medium ${
               isLoginPage ? 'text-gray-900' : 'text-white'
             }`}>
-            Home
+            Exen
           </h2>
         </div>
         {walletAddress && !isLoginPage && (
