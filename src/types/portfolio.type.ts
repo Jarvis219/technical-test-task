@@ -17,3 +17,10 @@ export interface ITodayStrategy {
   pnl: string
   previous_pnl: string
 }
+
+export interface IProfitData {
+  title: string
+  total: string
+  caption: string
+  profit?: number
+}
