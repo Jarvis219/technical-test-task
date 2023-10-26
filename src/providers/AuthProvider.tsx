@@ -34,7 +34,7 @@ const Web3Provider = ({ children }: { children: ReactNode }): JSX.Element => {
 
   useLayoutEffect(() => {
     if (user && pathName === pageLinks.Login) router.push(pageLinks.Home)
-  }, [pathName])
+  }, [pathName, user])
 
   if (!user && pathName === pageLinks.Home) return <LoadingOverlay />
 

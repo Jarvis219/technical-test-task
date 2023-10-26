@@ -34,7 +34,7 @@ const Header = (): JSX.Element => {
             Home
           </h2>
         </div>
-        {walletAddress && (
+        {walletAddress && !isLoginPage && (
           <div className='flex items-center gap-2'>
             <SearchInputAndNotification />
             <UserDropDown />
