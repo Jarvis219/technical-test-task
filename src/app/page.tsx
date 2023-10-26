@@ -6,7 +6,12 @@ import {
 } from '@/services'
 import { IProfitData } from '@/types'
 import { calculatePercentProfit } from '@/utils'
-import { NextPage } from 'next'
+import { Metadata, NextPage } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Portfolio',
+  description: 'Portfolio',
+}
 
 const HomePage: NextPage = async (): Promise<JSX.Element> => {
   const handleGetProfit = async (): Promise<IProfitData[]> => {

@@ -7,11 +7,14 @@ import { Inter } from 'next/font/google'
 import { Suspense } from 'react'
 import Loading from './loading'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
-  title: 'Test technical',
-  description: 'Test technical',
+  title: 'The Technical Test Task',
+  description: 'The Technical Test Task',
   icons: imageUrl.logo,
 }
 
