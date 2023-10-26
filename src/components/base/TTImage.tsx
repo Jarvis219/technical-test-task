@@ -22,7 +22,7 @@ interface ITTImageProps {
 }
 
 const TTImage = ({
-  src = imageUrl.logo,
+  src = imageUrl.default,
   alt = '',
   className = '',
   height = IMAGE_HEIGHT_DEFAULT,
@@ -31,15 +31,12 @@ const TTImage = ({
   priority = false,
   lazy = true,
 }: ITTImageProps): JSX.Element => {
-  const classes = twMerge(
-    'aspect-[4/3] object-contain w-auto h-auto',
-    className
-  )
+  const classes = twMerge('aspect-[4/3] object-contain', className)
 
-  const [photo, setPhoto] = useState<string>(imageUrl.logo)
+  const [photo, setPhoto] = useState<string>(src)
 
   useEffect(() => {
-    isEmpty(src) ? setPhoto(imageUrl.logo) : setPhoto(src)
+    isEmpty(src) ? setPhoto(imageUrl.default) : setPhoto(src)
   }, [src])
 
   return (
