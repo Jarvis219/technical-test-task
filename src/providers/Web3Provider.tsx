@@ -1,12 +1,8 @@
 'use client'
 
-import LoadingOverlay from '@/components/base/LoadingOverlay'
-import { pageLinks } from '@/constants'
 import AuthProvider from '@/contexts/AuthContext'
-import { IUser } from '@/types'
 import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react'
-import { usePathname, useRouter } from 'next/navigation'
-import { ReactNode, useLayoutEffect, useState } from 'react'
+import { ReactNode } from 'react'
 import { WagmiConfig } from 'wagmi'
 import { arbitrum, mainnet } from 'wagmi/chains'
 
@@ -20,40 +16,10 @@ const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata })
 
 createWeb3Modal({ wagmiConfig, projectId, chains })
 
-const Web3Provider = ({ children }: { children: ReactNode }): JSX.Element => {
-  const router = useRouter()
-  const pathName = usePathname()
-  const [user, setUser] = useState<IUser>()
-
-  const handleLogin = ({ address, signature, singedMessage }: IUser): void =>
-    setUser({ address, signature, singedMessage })
-
-  useLayoutEffect(() => {
-    if (user && pathName === pageLinks.Login) {
-      router.push(pageLinks.Home)
-      return
-    }
-
-    user ? router.push(pageLinks.Home) : router.push(pageLinks.Login)
-  }, [pathName, user])
-
-  if (
-    (!user && pathName === pageLinks.Home) ||
-    (user && pathName === pageLinks.Login)
-  )
-    return <LoadingOverlay />
-
-  return (
-    <WagmiConfig config={wagmiConfig}>
-      <AuthProvider
-        walletAddress={user?.address}
-        isLoggedIn={!!user}
-        login={handleLogin}
-        logout={(): void => setUser(undefined)}>
-        {children}
-      </AuthProvider>
-    </WagmiConfig>
-  )
-}
+const Web3Provider = ({ children }: { children: ReactNode }): JSX.Element => (
+  <WagmiConfig config={wagmiConfig}>
+    <AuthProvider>{children}</AuthProvider>
+  </WagmiConfig>
+)
 
 export default Web3Provider

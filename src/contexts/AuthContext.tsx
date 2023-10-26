@@ -1,31 +1,30 @@
-import { getSignatureMessage } from '@/constants'
+import LoadingOverlay from '@/components/base/LoadingOverlay'
+import { getSignatureMessage, pageLinks } from '@/constants'
 import { IAuthContext, IUser } from '@/types'
-import { ReactNode, createContext, useContext } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useLayoutEffect,
+  useState,
+} from 'react'
 import { useAccount, useDisconnect, useSignMessage } from 'wagmi'
 
 const initState: IAuthContext = {
   walletAddress: undefined,
   isLoggedIn: false,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  login: ({ address, signature, singedMessage }) => {},
   logout: () => {},
 }
 
 const AuthContext = createContext<IAuthContext>(initState)
 
-interface IAuthProviderProps extends Omit<IAuthContext, 'login'> {
-  children: ReactNode
-  login: ({ address, signature, singedMessage }: IUser) => void
-}
-
-const AuthProvider = ({
-  children,
-  walletAddress,
-  isLoggedIn,
-  login,
-  logout,
-}: IAuthProviderProps): JSX.Element => {
+const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
+  const router = useRouter()
+  const pathName = usePathname()
   const { disconnect } = useDisconnect()
+
+  const [user, setUser] = useState<IUser>()
 
   const { address } = useAccount({
     onConnect: () =>
@@ -38,25 +37,38 @@ const AuthProvider = ({
     onSuccess(signature, variables) {
       const { message } = variables
       const singedMessage = message
-      login({ address: address as string, signature, singedMessage })
+      setUser({ address: address as string, signature, singedMessage })
     },
-
     onError(error) {
       throw error
     },
   })
 
+  useLayoutEffect(() => {
+    if (user && pathName === pageLinks.Login) {
+      router.push(pageLinks.Home)
+      return
+    }
+
+    user ? router.push(pageLinks.Home) : router.push(pageLinks.Login)
+  }, [pathName, user])
+
+  if (
+    (!user && pathName === pageLinks.Home) ||
+    (user && pathName === pageLinks.Login)
+  )
+    return <LoadingOverlay />
+
   const handleLogout = (): void => {
-    logout()
+    setUser(undefined)
     disconnect()
   }
 
   return (
     <AuthContext.Provider
       value={{
-        walletAddress: walletAddress,
-        isLoggedIn,
-        login,
+        walletAddress: user?.address,
+        isLoggedIn: !!user,
         logout: handleLogout,
       }}>
       {children}
