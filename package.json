@@ -2,6 +2,10 @@
   "name": "test-technical",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Tran Quang",
+    "email": "taquang.hskx.2000@gmail.com"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
