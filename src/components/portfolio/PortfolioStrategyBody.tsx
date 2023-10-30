@@ -55,7 +55,7 @@ const PortfolioStrategyBody = ({
           className={`flex gap-1 items-center font-semibold ${
             resultProfit ? 'text-green-500' : 'text-red-500'
           }`}>
-          {resultProfit > 0 ? '+' : '-'}
+          {resultProfit > 0 ? '+' : ''}
           {resultProfit.toFixed(2)}%
         </p>
       </td>

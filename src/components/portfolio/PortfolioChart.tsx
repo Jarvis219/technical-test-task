@@ -1,9 +1,15 @@
 'use client'
 
 import { IProfitByDay } from '@/types'
-import { convertDateToMonth } from '@/utils'
+import { convertDateToMonth, formatNumber } from '@/utils'
 import { memo, useMemo } from 'react'
 import Chart from 'react-apexcharts'
+
+interface ITooltipChartProps {
+  series: never[]
+  seriesIndex: number
+  dataPointIndex: number
+}
 
 interface IProfitCardProps {
   profitByDay: IProfitByDay
@@ -29,6 +35,21 @@ const PortfolioChart = ({ profitByDay }: IProfitCardProps): JSX.Element => {
       },
       xaxis: {
         categories: labels.map(convertDateToMonth),
+      },
+      yaxis: {
+        labels: {
+          formatter: (val: number) => `${formatNumber(val)}`,
+        },
+      },
+      tooltip: {
+        custom: ({
+          series,
+          seriesIndex,
+          dataPointIndex,
+        }: ITooltipChartProps): string =>
+          `<div class='p-2 bg-black text-white rounded shadow'>$ ${formatNumber(
+            series[seriesIndex][dataPointIndex]
+          )}</div>`,
       },
       fill: {
         type: 'gradient',
@@ -65,6 +86,18 @@ const PortfolioChart = ({ profitByDay }: IProfitCardProps): JSX.Element => {
           },
         },
       ],
+      grid: {
+        xaxis: {
+          lines: {
+            show: false,
+          },
+        },
+        yaxis: {
+          lines: {
+            show: false,
+          },
+        },
+      },
     }),
     [labels]
   )
