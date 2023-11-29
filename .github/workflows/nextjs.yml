@@ -52,8 +52,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "20"
-          cache: 'npm'
-          cache-dependency-path: subdir/package-lock.json
+          check-latest: true
+          cache: "npm"
+          cache-dependency-path: functions/package-lock.json
       - name: Setup Pages
         uses: actions/configure-pages@v3
         with:
